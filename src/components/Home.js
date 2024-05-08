@@ -14,7 +14,7 @@ const Home = () => {
     const [posts, setPosts] = useState([]);
     const [showAddTweetForm, setShowAddTweetForm] = useState(false);
 
-   
+
     const fetchAvatar = async (userId) => {
         const userDoc = await getDoc(doc(firestore, "Users", userId));
         return userDoc.data().avatar;
@@ -75,7 +75,14 @@ const Home = () => {
                             <li key={post.id} className="message-container">
                                 <Link to={`/Profile/${post.uid}`}>
                                     <div className="message-header">
-                                        <img src={`https://firebasestorage.googleapis.com/v0/b/${storage.app.options.storageBucket}/o/${encodeURIComponent(post.avatar)}?alt=media`} alt="profile_picture" width="35" height="35" />
+                                        <img
+                                            src={post.avatar !== "" ?
+                                                `https://firebasestorage.googleapis.com/v0/b/${storage.app.options.storageBucket}/o/${encodeURIComponent(post.avatar)}?alt=media` :
+                                                "https://icons.iconarchive.com/icons/paomedia/small-n-flat/128/profile-icon.png"}
+                                            alt="profile_picture"
+                                            width="35"
+                                            height="35"
+                                        />
                                         <span className="message-owner-name"><strong>{post.username}</strong></span>
                                     </div>
                                     <div className="message-body">
