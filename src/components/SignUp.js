@@ -1,11 +1,11 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignUp.css';
 
-import { auth } from '../firebase';
+import { auth, firestore } from '../firebase';
 import Header from './Header';
-
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
@@ -16,9 +16,19 @@ const SignUp = () => {
     const handleSignUp = async (e) => {
         e.preventDefault();
         try {
+            
+             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+             const user =  userCredential.user;
 
-            await createUserWithEmailAndPassword(auth,email,password)
+            
+             await setDoc(doc(firestore, "Users", `${user.uid}`), {
+                email: email,
+                username: username,
+            
+              });
+
             navigate("/");
+
         } catch (error) {
             console.log(error);
         }

@@ -14,8 +14,8 @@ const NavBar = () => {
 
             {user && (
                     <>
-                        <Link to="/Home">Home</Link>
-                        <Link to="/Profile">Profile</Link>
+                        <Link to={`/Home/${user.uid}`}>Home</Link>
+                        <Link to={`/Profile/${user.uid}`}>Profile</Link>
                     </>
                 )}
                 

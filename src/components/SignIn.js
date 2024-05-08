@@ -15,8 +15,10 @@ const SignIn = () => {
         e.preventDefault();
         try {
            
-            await signInWithEmailAndPassword(auth,email,password)
-            navigate("/Home")
+            const userCredential = await signInWithEmailAndPassword(auth,email,password)
+
+            navigate(`/Home/${userCredential.user.uid}`)
+            
         } catch (error) {
             console.log(error);
         }

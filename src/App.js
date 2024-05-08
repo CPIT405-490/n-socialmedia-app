@@ -21,8 +21,8 @@ function App() {
             <Route path="/" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
 
-            <Route path='/Home' element={<ProtectedRoute Component={Home}/>}/>
-            <Route path='/Profile' element={<ProtectedRoute Component={Profile}/>} />
+            <Route path='/Home/:uid' element={<ProtectedRoute Component={Home}/>}/>
+            <Route path='/Profile/:uid' element={<ProtectedRoute Component={Profile}/>} />
 
           </Routes>
         </div>
