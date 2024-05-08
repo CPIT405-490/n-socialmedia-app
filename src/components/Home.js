@@ -1,7 +1,9 @@
 import { collection, doc, getDoc, onSnapshot, query } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { firestore } from "../firebase";
+import { Link, useParams } from "react-router-dom";
+import { firestore, storage } from "../firebase";
+import "./Home.css";
+
 import AddMessageForm from "./AddMessageForm";
 import NavBar from "./HomeHeader";
 
@@ -9,8 +11,14 @@ const Home = () => {
     const params = useParams();
     const uid = params.uid;
     const [userData, setUserData] = useState(null);
-    const [messages, setMessages] = useState([]);
+    const [posts, setPosts] = useState([]);
     const [showAddTweetForm, setShowAddTweetForm] = useState(false);
+
+   
+    const fetchAvatar = async (userId) => {
+        const userDoc = await getDoc(doc(firestore, "Users", userId));
+        return userDoc.data().avatar;
+    };
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -19,19 +27,28 @@ const Home = () => {
         };
 
         const fetchMessages = () => {
-            const roarsCollectionRef = collection(firestore, "Users", uid, "Roars");
+            const roarsCollectionRef = collection(firestore, "Roars");
             const q = query(roarsCollectionRef);
 
-            const unsubscribe = onSnapshot(q, (querySnapshot) => {
-                const messagesData = [];
-                querySnapshot.forEach((doc) => {
+            const unsubscribe = onSnapshot(q, async (querySnapshot) => {
+                const postsData = [];
+                for (const doc of querySnapshot.docs) {
                     const data = doc.data();
+                    const postsArray = data.posts || [];
 
-                    const timestamp = data.timestamp ? data.timestamp.toDate() : null;
-                    
-                    messagesData.push({ id: doc.id, ...data, timestamp });
-                });
-                setMessages(messagesData);
+                    for (const post of postsArray) {
+                        const avatar = await fetchAvatar(post.uid);
+                        postsData.push({
+                            uid: post.uid,
+                            id: post.id,
+                            username: post.username,
+                            text: post.text,
+                            timestamp: post.timestamp.toDate(),
+                            avatar: avatar
+                        });
+                    }
+                }
+                setPosts(postsData);
             });
 
             return unsubscribe;
@@ -50,25 +67,30 @@ const Home = () => {
             <NavBar />
             <div className="home">
                 {userData && <h1>Hello {userData.username}</h1>}
-                <button className="floating-button" onClick={() => setShowAddTweetForm(true)}>
-                    +
-                </button>
+                <button className="floating-button" onClick={() => setShowAddTweetForm(true)}>+</button>
                 <div>
                     <h2>Messages</h2>
                     <ul>
-                        {messages.map((message) => (
-                            <li key={message.id}>
-                                <p>{message.text}</p>
-                                
-                                {message.timestamp && (
-                                    <p>Sent at: {message.timestamp.toLocaleString()}</p>
-                                )}
+                        {posts.map((post) => (
+                            <li key={post.id} className="message-container">
+                                <Link to={`/Profile/${post.uid}`}>
+                                    <div className="message-header">
+                                        <img src={`https://firebasestorage.googleapis.com/v0/b/${storage.app.options.storageBucket}/o/${encodeURIComponent(post.avatar)}?alt=media`} alt="profile_picture" width="35" height="35" />
+                                        <span className="message-owner-name"><strong>{post.username}</strong></span>
+                                    </div>
+                                    <div className="message-body">
+                                        <p>{post.text}</p>
+                                        {post.timestamp && (
+                                            <p>Sent at: {post.timestamp.toLocaleString()}</p>
+                                        )}
+                                    </div>
+                                </Link>
                             </li>
                         ))}
                     </ul>
                 </div>
             </div>
-            {showAddTweetForm && <AddMessageForm onClose={() => setShowAddTweetForm(false)} uid={uid} />}
+            {showAddTweetForm && <AddMessageForm onClose={() => setShowAddTweetForm(false)} uid={uid} username={userData.username} />}
         </>
     );
 };

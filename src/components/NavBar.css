@@ -2,12 +2,16 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    background-color: #f5f5f5;
+    padding: 0px 20px;
+    background-color: #007BFF;
 }
 
-h1 {
-    color: #007BFF;
+.intHeaders {
+    color: #ffffff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    margin-top: 9px;
+    margin-bottom: 10px;
 }
 
 .links {
@@ -17,10 +21,14 @@ h1 {
 
 .links a {
     text-decoration: none;
-    color: #007BFF;
+    color: #ffffff;
     transition: color 0.3s ease;
 }
 
 .links a:hover {
     color: #0056b3;
+}
+
+.logout{
+    color: #ffffff;
 }

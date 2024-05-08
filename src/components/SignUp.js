@@ -24,7 +24,9 @@ const SignUp = () => {
              await setDoc(doc(firestore, "Users", `${user.uid}`), {
                 email: email,
                 username: username,
-            
+                avatar:"",
+                bio:"",
+                roars:0,
               });
 
             navigate("/");
@@ -38,7 +40,9 @@ const SignUp = () => {
         <>
             <Header />
             <div className="signup-container">
-                <h2>Sign Up</h2>
+                <img className="iconPro" width="200" height="200"
+                    src="https://www.iconarchive.com/download/i86695/johanchalibert/mac-osx-yosemite/messages.1024.png" alt="Logo" />
+                <h2 className='intHeaders'>Sign Up</h2>
                 <form onSubmit={handleSignUp}>
                     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />

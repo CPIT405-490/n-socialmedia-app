@@ -1,25 +1,46 @@
-import { collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { Timestamp, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import React, { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import { firestore } from '../firebase';
+import "./AddMessageForm.css";
 
-const AddMessageForm = ({ onClose, uid }) => {
+const AddMessageForm = ({ onClose, uid ,username}) => {
     const [tweetText, setTweetText] = useState("");
 
     const handleSubmit = async () => {
-        const roarsCollectionRef = collection(firestore, "Users", uid, "Roars");
 
-    
-        const timestamp = serverTimestamp();
+        const postId = uuidv4();
 
-        const messageData = {
+        const postData = {
+            uid : uid,
+            id: postId,
+            username: username,
             text: tweetText,
-            timestamp: timestamp
+            timestamp: Timestamp.now()
         };
+    
+        const roarsDocRef = doc(firestore, "Roars", uid);
+        const roarsDocSnap = await getDoc(roarsDocRef);
+    
         
-        await setDoc(doc(roarsCollectionRef), messageData);
+        if (roarsDocSnap.exists()) {
+            const existingMessages = roarsDocSnap.data().posts || [];
+            const updatedMessages = [...existingMessages, postData];
+    
+            await setDoc(roarsDocRef, { posts: updatedMessages });
+        } else {
+           
+            await setDoc(roarsDocRef, { posts: [postData] });
+        }
+    
+        const userDocRef = doc(firestore, "Users", uid);
+        const userDocSnap = await getDoc(userDocRef);
+
+        await updateDoc(userDocRef, { roars: userDocSnap.data().roars+1 });
 
         onClose();
     };
+    
 
     return (
         <div className="floating-screen">
