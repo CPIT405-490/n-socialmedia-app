@@ -50,7 +50,7 @@ const Profile = () => {
     return data && (
         <div className="whole-profile-container">
             <NavBar />
-            <h1>Profile</h1>
+            <h1 className="profile-header-title">Profile</h1>
 
             <button className="floating-button" onClick={() => setEditProfileForm(true)}>✏️</button>
 

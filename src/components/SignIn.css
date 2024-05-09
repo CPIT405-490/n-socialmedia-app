@@ -5,16 +5,21 @@
     justify-content: center;
     height: 100vh;
     background-color: #f5f5f5;
+    background-color: #262138;
 }
 
-.signin-container .intHeaders {
+.signin-container .intHeaders1 {
     margin-bottom: 20px;
-    color: #007BFF;
-    border-bottom: 3px black solid;
+    color: #ffffff;
+    border-bottom: 3px rgb(235, 135, 21) solid;
     padding-bottom: 20px;
     width: 10%;
+    margin-top: 0px;
 }
-
+.form-container{
+    align-items: center;
+    justify-content: center;
+}
 .signin-container form {
     display: flex;
     flex-direction: column;
@@ -25,14 +30,22 @@
     padding: 10px;
     width: 200px;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 0.5px solid #ffffff;
+    background-color: #0d0528;
+    color: #ffffff;
+}
+.signin-container input::placeholder {
+    color: #413171;
 }
 
 .signin-container button {
     padding: 10px 20px;
-    background-color: #007BFF;
-    color: white;
+    background-color: rgb(0, 193, 164);
+    color: rgb(0, 0, 0);
     border: none;
+    font-family: Helvetica;
+    font-weight:bolder;
+    width: 50%;
     border-radius: 5px;
     cursor: pointer;
 }

@@ -41,9 +41,9 @@ const SignUp = () => {
             <Header />
             <div className="signup-container">
                 <img className="iconPro" width="200" height="200"
-                    src="https://www.iconarchive.com/download/i86695/johanchalibert/mac-osx-yosemite/messages.1024.png" alt="Logo" />
-                <h2 className='intHeaders'>Sign Up</h2>
-                <form onSubmit={handleSignUp}>
+                    src="https://cdn-icons-png.flaticon.com/512/4564/4564089.png" alt="Logo" />
+                <h2 className='intHeaders1'>Sign Up</h2>
+                <form className="form-container" onSubmit={handleSignUp}>
                     <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
                     <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />

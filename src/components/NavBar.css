@@ -3,12 +3,15 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0px 20px;
-    background-color: #007BFF;
+    background-color:  rgb(38, 15, 63);
+    border-bottom: 1px rgb(0, 0, 0) solid;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0px;
 }
 
 .intHeaders {
-    color: #ffffff;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #8430a5;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif, Geneva, Tahoma, sans-serif;
     font-style: italic;
     margin-top: 9px;
     margin-bottom: 10px;
@@ -30,5 +33,10 @@ nav {
 }
 
 .logout{
-    color: #ffffff;
+    color: #fa0000;
+    background-color: rgb(46, 2, 2);
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    border: 0.5px solid #000000;
 }

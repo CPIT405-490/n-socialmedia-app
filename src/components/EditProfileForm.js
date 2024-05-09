@@ -52,25 +52,26 @@ const EditProfileForm = ({ onClose, uid }) => {
     
 
     return (
-        <div className="floating-screen">
-            <div className="floating-content">
+        <div className="floating-screen2">
+            <div className="floating-content2">
                 <h2>Edit Profile</h2>
         
                 <label>Avatar:</label>
-                <input
+                <input 
+                className="floating-btn-2"
                     type="file"
                     onChange={(e) => {
                         setImageFile(e.target.files[0])
                         }}
                 />
                 <label>Bio:</label>
-                <textarea
+                <textarea className="floating-txt-area2"
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                     rows={4}
                 />
-                <button onClick={handleSubmit}>Submit</button>
-                <button onClick={onClose}>Close</button>
+                <button className="floating-btn-1" onClick={handleSubmit}>Submit</button>
+                <button className="floating-btn-1" onClick={onClose}>Close</button>
             </div>
         </div>
     );

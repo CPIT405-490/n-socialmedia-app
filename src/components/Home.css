@@ -8,19 +8,32 @@ ul{
 }
 .message-container{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 25%;
+    width: 50%;
     margin: 0 auto;
     border-radius: 5px;
     margin-bottom: 20px;
+    border: 0.5px solid #000000;
 }
 .message-header{
     text-align: left;
-    background-color: #6fb5ff;
+    background-color: rgb(0, 193, 164);
     padding: 10px;
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
     display: flex;
     align-items: center;
+}
+.homme{
+    height: 100vh;
+    background-color: #161127;
+}
+.homme2{
+    padding-top: 10px;
+    height: 100vh;
+    width: 60%;
+    margin: 0 auto;
+    background-color: #262138;
+    
 }
 .iconPro2{
     height: auto;
@@ -32,25 +45,50 @@ ul{
     margin-left: 10px;
     color: #ffffff;
 }
+.message-text{
+    color: #ffffff;
+}
 
 .message-header img{    
     border-radius: 50%;
 }
-
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: rgb(0, 193, 164);
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 .message-body{
     padding: 0px 15px;
     text-align: left;
 }
 
 .message-footer{
-    background-color: #f3f3f3;
+    background-color: #1b1728;
     text-align: right;
     padding-right: 5px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    
+}
+
+
+.homme2 .welcomemsg{
+    margin: 0px;
+    margin-bottom: 30px;
+    color: rgb(126, 126, 126);
 }
 
 .message-footer p{
     color: rgb(126, 126, 126);
     font-size: 10px;
+    margin: 0px;
 }

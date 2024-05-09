@@ -13,6 +13,8 @@ const Home = () => {
     const [userData, setUserData] = useState(null);
     const [posts, setPosts] = useState([]);
     const [showAddTweetForm, setShowAddTweetForm] = useState(false);
+    const [url, setUrl] = useState("");
+    const [postImages, setPostImages] = useState({});
 
 
     const fetchAvatar = async (userId) => {
@@ -26,6 +28,7 @@ const Home = () => {
             setUserData(docSnap.data());
         };
 
+        
         const fetchMessages = () => {
             const roarsCollectionRef = collection(firestore, "Roars");
             const q = query(roarsCollectionRef);
@@ -66,13 +69,14 @@ const Home = () => {
         <>
             <NavBar />
             <div className="home">
-                {userData && <h1>Hello {userData.username}</h1>}
+                
                 <button className="floating-button" onClick={() => setShowAddTweetForm(true)}>+</button>
-                <div>
-                    <h2>Messages</h2>
-                    <ul>
+                <div className="homme">
+                <div className="homme2">
+                {userData && <p className="welcomemsg">--Welcome to the chat <strong>{userData.username}</strong>!--</p>}
                         {posts.map((post) => (
-                            <li key={post.id} className="message-container">
+                            
+                            <div key={post.id} className="message-container">
                                 <Link to={`/Profile/${post.uid}`}>
                                     <div className="message-header">
                                         <img
@@ -86,15 +90,24 @@ const Home = () => {
                                         <span className="message-owner-name"><strong>{post.username}</strong></span>
                                     </div>
                                     <div className="message-body">
-                                        <p>{post.text}</p>
+                                        <p className="message-text">{post.text}</p>
+                                        { 
+                                        post.url && "" ?
+                                        <img src={post.url}
+                                        alt="post_picture"
+                                        width="200" height="200" />
+                                        : null
+                                        }
+                                    </div>
+                                    <div className="message-footer">
                                         {post.timestamp && (
                                             <p>Sent at: {post.timestamp.toLocaleString()}</p>
                                         )}
                                     </div>
                                 </Link>
-                            </li>
+                            </div>
                         ))}
-                    </ul>
+                </div>
                 </div>
             </div>
             {showAddTweetForm && <AddMessageForm onClose={() => setShowAddTweetForm(false)} uid={uid} username={userData.username} />}

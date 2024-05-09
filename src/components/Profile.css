@@ -10,8 +10,11 @@ whole-profile-container{
     width: 25%;
     padding: 20px;
     margin: 0 auto;
-    background-color: #6fb5ff;
+    background-color: rgb(0, 193, 164);
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border: 0.5px solid #000000;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 
 }
 .profile-container2{
@@ -20,6 +23,8 @@ whole-profile-container{
     padding: 20px;
     margin: 0 auto;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border: 0.5px solid #000000;
+    background-color: #262138;
 
 }
 
@@ -73,4 +78,13 @@ whole-profile-container{
     display: block;
     width: 100%;
     border: none;
+    color: aliceblue;
+}
+.biohead{
+    color: aliceblue;
+    padding: 0px;
+}
+
+.profile-header-title{
+    color: aliceblue;
 }
