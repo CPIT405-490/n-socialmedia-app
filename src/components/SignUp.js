@@ -1,9 +1,9 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from "firebase/firestore";
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignUp.css';
 
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from "firebase/firestore";
 import { auth, firestore } from '../firebase';
 import Header from './Header';
 
@@ -15,24 +15,27 @@ const SignUp = () => {
 
     const handleSignUp = async (e) => {
         e.preventDefault();
+        if (!email || !username || !password) {
+            alert('Please fill in all fields.');
+            return;
+        }else if (password.length < 6) {
+            alert('Password should be at least 6 characters long.');
+            return;
+        }
         try {
-            
-             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-             const user =  userCredential.user;
-
-            
-             await setDoc(doc(firestore, "Users", `${user.uid}`), {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user =  userCredential.user;
+            await setDoc(doc(firestore, "Users", `${user.uid}`), {
                 email: email,
                 username: username,
                 avatar:"",
                 bio:"",
                 roars:0,
-              });
-
+            });
             navigate("/");
-
         } catch (error) {
             console.log(error);
+            alert('Error signing up. Please try again.');
         }
     };
 

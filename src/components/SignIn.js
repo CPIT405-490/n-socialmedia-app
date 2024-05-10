@@ -13,14 +13,20 @@ const SignIn = () => {
 
     const handleSignIn = async (e) => {
         e.preventDefault();
-        try {
-           
-            const userCredential = await signInWithEmailAndPassword(auth,email,password)
+        if (!email || !password) {
+            alert('Please fill in all fields.');
+            return;
+        }else if (password.length < 6){
+            alert('Password should be at least 6 characters long.');
+            return;
+        }
 
-            navigate(`/Home/${userCredential.user.uid}`)
-            
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth,email,password)
+            navigate(`/Home/${userCredential.user.uid}`);
         } catch (error) {
             console.log(error);
+            alert('Invalid email or password.');
         }
     };
 

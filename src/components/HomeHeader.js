@@ -10,7 +10,7 @@ const NavBar = () => {
     return (
         <nav>
 
-            <h2 className='intHeaders'>N social media app</h2>
+            <h2 className='intHeaders'>Roar app</h2>
             <div className="links">
 
             {user && (

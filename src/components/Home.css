@@ -10,8 +10,9 @@ ul{
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 50%;
     margin: 0 auto;
+    margin-top: 15px;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 13px;
     border: 0.5px solid #000000;
 }
 .message-header{
@@ -80,7 +81,6 @@ ul{
     
 }
 
-
 .homme2 .welcomemsg{
     margin: 0px;
     margin-bottom: 30px;
@@ -92,3 +92,38 @@ ul{
     font-size: 10px;
     margin: 0px;
 }
+
+
+.like-button {
+    color:rgb(0, 240, 0);
+    background-color: #003b02;
+    padding: 5px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    border: 0.5px solid #000000;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  
+  .dislike-button {
+    color:rgb(240, 0, 0);
+    background-color: rgb(46, 2, 2);
+    padding: 5px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    border: 0.5px solid #000000;
+    cursor: pointer;
+  }
+
+
+.like-button:hover{
+    color:#003b02;
+    background-color: rgb(1, 218, 1);
+  }
+  
+.dislike-button:hover {
+    color:rgb(46, 2, 2);
+    background-color: rgb(220, 0, 0);
+  }

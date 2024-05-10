@@ -1,25 +1,71 @@
 import { Timestamp, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import React, { useState } from "react";
+import { ref, uploadBytes } from "firebase/storage";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { firestore, storage } from '../firebase';
 import "./AddMessageForm.css";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const AddMessageForm = ({ onClose, uid, username }) => {
     const [tweetText, setTweetText] = useState("");
+    const [postId, setPostId] = useState(null);
     const [imageFile, setImageFile] = useState(null);
-    const [url, setUrl] = useState("");
-    const [postId, setPostId] = useState(uuidv4());
-    const [img, setImg] = useState("");
+
+    useEffect(() => {
+        const handlePostSubmission = async () => {
+            if (postId) {
+                try {
+                    await handleImageUpload();
+
+                    const postData = {
+                        uid: uid,
+                        id: postId,
+                        username: username,
+                        text: tweetText,
+                        timestamp: Timestamp.now(),
+                        likes:0,
+                        dislikes:0
+                    };
+
+                    if (imageFile) {
+                        postData.PostImg = `postImg/${postId}/${imageFile.name}`;
+                    }
+
+                    const roarsDocRef = doc(firestore, "Roars", uid);
+                    const roarsDocSnap = await getDoc(roarsDocRef);
+                    
+                    if (roarsDocSnap.exists()) {
+                        const existingMessages = roarsDocSnap.data().posts || [];
+                        const updatedMessages = [...existingMessages, postData];
+                
+                        await setDoc(roarsDocRef, { posts: updatedMessages });
+                    } else {
+                        await setDoc(roarsDocRef, { posts: [postData] });
+                    }
+                
+                    const userDocRef = doc(firestore, "Users", uid);
+                    const userDocSnap = await getDoc(userDocRef);
+                
+                    // Check if there are any fields to update
+                    if (Object.keys(postData).length > 0) {
+                        await updateDoc(userDocRef, { roars: userDocSnap.data().roars + 1 });
+                        onClose();
+                    } else {
+                        console.error("No fields to update.");
+                    }
+                } catch (error) {
+                    console.error("Error Adding a Post:", error);
+                }
+            }
+        };
+
+        handlePostSubmission();
+    }, [postId]);
 
     const handleImageUpload = async () => {
         try {
             if (imageFile) {
-                const storageRef = ref(storage, url);
+                const storageRef = ref(storage, `postImg/${postId}/${imageFile.name}`);
                 await uploadBytes(storageRef, imageFile);
-                const downloadUrl = await getDownloadURL(storageRef);
-                setImg(downloadUrl);
-                return downloadUrl; // Return the URL for immediate use
             }
         } catch (error) {
             console.error("Error uploading image:", error);
@@ -27,38 +73,19 @@ const AddMessageForm = ({ onClose, uid, username }) => {
     };
 
     const handleSubmit = async () => {
-        let imageUrl = img;
-
-        if (imageFile) {
-            imageUrl = await handleImageUpload(); // Wait for the upload and get the URL
+        try {
+            
+            if (!tweetText) {
+                alert("Please enter your tweet before submitting.");
+                return;
+            }
+            const newPostId = uuidv4();
+            setPostId(newPostId);
+            setPostId(newPostId);
+            setPostId(newPostId);
+        } catch (error) {
+            console.error("Error Adding a Post:", error);
         }
-
-        const postData = {
-            uid: uid,
-            id: postId,
-            username: username,
-            text: tweetText,
-            timestamp: Timestamp.now(),
-            image: imageUrl
-        };
-
-        const roarsDocRef = doc(firestore, "Roars", uid);
-        const roarsDocSnap = await getDoc(roarsDocRef);
-
-        if (roarsDocSnap.exists()) {
-            const existingMessages = roarsDocSnap.data().posts || [];
-            const updatedMessages = [...existingMessages, postData];
-            await setDoc(roarsDocRef, { posts: updatedMessages });
-        } else {
-            await setDoc(roarsDocRef, { posts: [postData] });
-        }
-
-        const userDocRef = doc(firestore, "Users", uid);
-        const userDocSnap = await getDoc(userDocRef);
-
-        await updateDoc(userDocRef, { roars: (userDocSnap.data().roars || 0) + 1 });
-
-        onClose();
     };
 
     return (
@@ -78,7 +105,6 @@ const AddMessageForm = ({ onClose, uid, username }) => {
                     type="file"
                     onChange={(e) => {
                         setImageFile(e.target.files[0]);
-                        setUrl(`images/${uid}/image-${postId}`);
                     }}
                 />
                 <button className="floating-btn-1" onClick={handleSubmit}>Submit</button>
