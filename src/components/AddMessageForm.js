@@ -45,13 +45,9 @@ const AddMessageForm = ({ onClose, uid, username }) => {
                     const userDocRef = doc(firestore, "Users", uid);
                     const userDocSnap = await getDoc(userDocRef);
                 
-                    // Check if there are any fields to update
-                    if (Object.keys(postData).length > 0) {
                         await updateDoc(userDocRef, { roars: userDocSnap.data().roars + 1 });
                         onClose();
-                    } else {
-                        console.error("No fields to update.");
-                    }
+                    
                 } catch (error) {
                     console.error("Error Adding a Post:", error);
                 }
