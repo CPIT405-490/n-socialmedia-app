@@ -47,9 +47,9 @@ const SignUp = () => {
                     src="https://cdn-icons-png.flaticon.com/512/4564/4564089.png" alt="Logo" />
                 <h2 className='intHeaders1'>Sign Up</h2>
                 <form className="form-container" onSubmit={handleSignUp}>
-                    <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-                    <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type="email" placeholder="Enter your Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="text" placeholder="Enter your Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <input type="password" placeholder="Enter your Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <button type="submit">Sign Up</button>
                 </form>
             </div>

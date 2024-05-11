@@ -5,7 +5,7 @@ import { firestore, storage } from "../firebase";
 import "./Home.css";
 
 import AddMessageForm from "./AddMessageForm";
-import NavBar from "./HomeHeader";
+import HomeNavBar from "./HomeNavBar";
 
 const Home = () => {
     const params = useParams();
@@ -15,9 +15,22 @@ const Home = () => {
     const [showAddTweetForm, setShowAddTweetForm] = useState(false);
 
     const fetchAvatar = async (userId) => {
-        const userDoc = await getDoc(doc(firestore, "Users", userId));
-        return userDoc.data().avatar;
+        try {
+            const userDoc = await getDoc(doc(firestore, "Users", userId));
+            const userData = userDoc.data();
+            if (userData && userData.avatar) {
+                return userData.avatar;
+            } else {
+               
+                return "";
+            }
+        } catch (error) {
+            console.error("Error fetching avatar:", error);
+            
+            return "";
+        }
     };
+    
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -107,11 +120,11 @@ const Home = () => {
 
     return (
         <>
-            <NavBar />
+            <HomeNavBar  />
             <div className="home">
                 <button className="floating-button" onClick={() => setShowAddTweetForm(true)}>+</button>
-                <div className="homme">
-                    <div className="homme2">
+                <div className="homme"  height="auto">
+                    <div className="homme2"  height="auto">
                         {userData && <p className="welcomemsg">--Welcome to the chat <strong>{userData.username}</strong>!--</p>}
                         {posts.map((post) => (
                             <>
@@ -139,8 +152,8 @@ const Home = () => {
                                 </div>
 
                                 <div className="like-dislike-buttons">
-                                    <button  className="like-button" onClick={() => handleLike(post.id)}>Likes ( {post.likes} )</button>
-                                    <button  className="dislike-button" onClick={() => handleDislike(post.id)}>Dislikes ( {post.dislikes} )</button>
+                                <button  className="like-button" onClick={() => handleLike(post.id)}>Like 👍( {post.likes} )</button>
+                                <button  className="dislike-button" onClick={() => handleDislike(post.id)}>Dislike 👎( {post.dislikes} )</button>
                                 </div>
                             </>
                         ))}

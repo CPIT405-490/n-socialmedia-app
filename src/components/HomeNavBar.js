@@ -3,7 +3,7 @@ import { auth } from '../firebase';
 import './NavBar.css';
 
 
-const NavBar = () => {
+const HomeNavBar  = () => {
 
     const user = auth.currentUser;
 
@@ -26,4 +26,4 @@ const NavBar = () => {
     );
 }
 
-export default NavBar;
+export default HomeNavBar ;

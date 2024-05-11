@@ -25,12 +25,16 @@ ul{
     align-items: center;
 }
 .homme{
-    height: 100vh;
     background-color: #161127;
+    height: auto;
+    display: flex;
+    overflow-y: auto; 
+    min-height: 100vh;
 }
+
 .homme2{
     padding-top: 10px;
-    height: 100vh;
+    height: auto;
     width: 60%;
     margin: 0 auto;
     background-color: #262138;

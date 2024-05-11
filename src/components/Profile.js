@@ -2,10 +2,10 @@ import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { firestore, storage } from "../firebase";
+import { auth, firestore, storage } from "../firebase";
 
 import EditProfileForm from "./EditProfileForm";
-import NavBar from "./HomeHeader";
+import HomeNavBar from "./HomeNavBar";
 
 import "./Profile.css";
 
@@ -49,10 +49,13 @@ const Profile = () => {
 
     return data && (
         <div className="whole-profile-container">
-            <NavBar />
+            <HomeNavBar />
             <h1 className="profile-header-title">Profile</h1>
 
+            {auth.currentUser.uid === uid && (
+
             <button className="floating-button" onClick={() => setEditProfileForm(true)}>✏️</button>
+            )}
 
             <div className="profile-container1">
 

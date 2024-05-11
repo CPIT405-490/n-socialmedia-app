@@ -90,13 +90,13 @@ const AddMessageForm = ({ onClose, uid, username }) => {
 
     return (
         <div className="floating-screen">
-            <h2>Add Message</h2>
+            <h2>Add a Roar</h2>
             <div className="floating-content">
                 <textarea
                     className="floating-txt-area"
                     value={tweetText}
                     onChange={(e) => setTweetText(e.target.value)}
-                    placeholder="Enter your tweet..."
+                    placeholder="Enter your roar..."
                     rows={4}
                     cols={50}
                 />
