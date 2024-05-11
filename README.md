@@ -28,11 +28,11 @@ Roar App is a social media platform where users can share their thoughts, connec
 
 * Signin Page
 
-  ![](ScreenShots/Screenshot_8.png)
+  ![](ScreenShots/Screenshot_7.png)
 
 * Signup Page
 
-   ![](ScreenShots/Screenshot_7.png)
+   ![](ScreenShots/Screenshot_8.png)
 
 * Home Page
 
@@ -53,12 +53,17 @@ Roar App is a social media platform where users can share their thoughts, connec
 # Getting Started
 To get started with Roar App, follow these steps:
 
-1- Clone the repository: git clone https://github.com/your-username/roar-app.git
-2- Install dependencies: npm install
-3- Set up Firebase: Create a Firebase project and configure authentication, Firestore, and Storage.
-4- Add Firebase configuration: Create a firebase.js file in the src directory and add your Firebase configuration.
-5- Run the application: npm start
-6- Access the application in your browser at http://localhost:3000
+* Clone the repository: git clone https://github.com/your-username/roar-app.git
+
+* Install dependencies: npm install
+  
+* Set up Firebase: Create a Firebase project and configure authentication, Firestore, and Storage.
+  
+* Add Firebase configuration: Create a firebase.js file in the src directory and add your Firebase configuration.
+  
+* Run the application: npm start
+  
+* Access the application in your browser at http://localhost:3000
 
 # Created by
 
